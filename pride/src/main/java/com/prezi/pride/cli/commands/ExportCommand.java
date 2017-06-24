@@ -2,7 +2,6 @@ package com.prezi.pride.cli.commands;
 
 import com.google.common.base.Function;
 import com.google.common.base.Strings;
-import com.google.common.base.Throwables;
 import com.google.common.collect.Collections2;
 import com.prezi.pride.Module;
 import com.prezi.pride.Pride;
@@ -11,8 +10,8 @@ import com.prezi.pride.cli.ExportedConfigurationHandler;
 import com.prezi.pride.cli.ExportedModule;
 import com.prezi.pride.vcs.VcsStatus;
 import com.prezi.pride.vcs.VcsSupport;
-import io.airlift.command.Command;
-import io.airlift.command.Option;
+import io.airlift.airline.Command;
+import io.airlift.airline.Option;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.io.FileUtils;
 
@@ -57,7 +56,7 @@ public class ExportCommand extends AbstractPrideCommand {
 					}
 					return new ExportedModule(module.getName(), vcsSupport.getRepositoryUrl(moduleDirectory), revision, module.getVcs());
 				} catch (IOException e) {
-					throw Throwables.propagate(e);
+					throw new RuntimeException(e);
 				}
 			}
 		});

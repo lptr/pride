@@ -1,6 +1,6 @@
 package com.prezi.pride;
 
-import com.google.common.base.Throwables;
+import com.google.common.base.Charsets;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.prezi.pride.config.ConfigurationData;
@@ -65,9 +65,9 @@ public class Pride {
 		File versionFile = new File(new File(directory, PRIDE_CONFIG_DIRECTORY), PRIDE_VERSION_FILE);
 		boolean result;
 		try {
-			result = versionFile.exists() && FileUtils.readFileToString(versionFile).equals("0\n");
+			result = versionFile.exists() && FileUtils.readFileToString(versionFile, Charsets.UTF_8).equals("0\n");
 		} catch (IOException ex) {
-			throw Throwables.propagate(ex);
+			throw new RuntimeException(ex);
 		}
 		logger.debug("Directory " + directory + " contains a pride: " + result);
 		return result;
@@ -191,7 +191,11 @@ public class Pride {
 		if (dir.getName().startsWith(".")) {
 			return false;
 		}
-		for (String fileName : dir.list()) {
+		String[] list = dir.list();
+		if (list == null) {
+			throw new PrideException("Can't list directory: " + dir);
+		}
+		for (String fileName : list) {
 			if (GRADLE_BUILD_FILE.equals(fileName) || GRADLE_SETTINGS_FILE.equals(fileName)) {
 				return true;
 			}

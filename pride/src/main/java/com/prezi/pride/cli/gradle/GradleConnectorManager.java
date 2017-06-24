@@ -2,7 +2,6 @@ package com.prezi.pride.cli.gradle;
 
 import com.google.common.base.Strings;
 import org.apache.commons.configuration.Configuration;
-import org.apache.commons.configuration.FileConfiguration;
 import org.gradle.tooling.GradleConnector;
 import org.gradle.tooling.ProjectConnection;
 import org.slf4j.Logger;
@@ -67,7 +66,7 @@ public class GradleConnectorManager {
 		};
 	}
 
-	public GradleConnector getConnector() {
+	private GradleConnector getConnector() {
 		return gradleConnector.get();
 	}
 
@@ -78,18 +77,5 @@ public class GradleConnectorManager {
 		} finally {
 			connection.close();
 		}
-	}
-
-	public boolean setGradleConfiguration(FileConfiguration config) {
-		boolean changed = false;
-		if (!Strings.isNullOrEmpty(gradleVersion)) {
-			config.setProperty(GRADLE_VERSION, gradleVersion);
-			changed = true;
-		}
-		if (gradleHome != null) {
-			config.setProperty(GRADLE_HOME, gradleHome);
-			changed = true;
-		}
-		return changed;
 	}
 }

@@ -19,7 +19,7 @@ public class RefreshDependenciesAction {
 			@Override
 			public Void execute(File projectDirectory, ProjectConnection connection) {
 				connection.newBuild()
-						.forTasks("doNothing")
+						.forTasks("help")
 						.withArguments("--refresh-dependencies")
 						.run();
 				return null;

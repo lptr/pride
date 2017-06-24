@@ -6,8 +6,8 @@ import com.prezi.pride.RuntimeConfiguration;
 import com.prezi.pride.cli.commands.actions.InitAction;
 import com.prezi.pride.cli.commands.actions.InitActionBase;
 import com.prezi.pride.cli.commands.actions.InitActionFromImportedConfig;
-import io.airlift.command.Command;
-import io.airlift.command.Option;
+import io.airlift.airline.Command;
+import io.airlift.airline.Option;
 
 import java.io.File;
 

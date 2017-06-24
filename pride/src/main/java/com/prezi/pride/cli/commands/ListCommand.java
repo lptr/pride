@@ -4,8 +4,8 @@ import com.google.common.base.Strings;
 import com.prezi.pride.Module;
 import com.prezi.pride.Pride;
 import com.prezi.pride.vcs.VcsStatus;
-import io.airlift.command.Command;
-import io.airlift.command.Option;
+import io.airlift.airline.Command;
+import io.airlift.airline.Option;
 
 import java.io.File;
 import java.io.IOException;

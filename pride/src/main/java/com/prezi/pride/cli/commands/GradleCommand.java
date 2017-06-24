@@ -3,8 +3,8 @@ package com.prezi.pride.cli.commands;
 import com.prezi.pride.Pride;
 import com.prezi.pride.cli.gradle.GradleConnectorManager;
 import com.prezi.pride.cli.gradle.GradleProjectExecution;
-import io.airlift.command.Arguments;
-import io.airlift.command.Command;
+import io.airlift.airline.Arguments;
+import io.airlift.airline.Command;
 import org.gradle.tooling.ProjectConnection;
 
 import java.io.File;

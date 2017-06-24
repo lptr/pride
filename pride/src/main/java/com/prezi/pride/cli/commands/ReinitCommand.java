@@ -4,8 +4,8 @@ import com.prezi.pride.Pride;
 import com.prezi.pride.RuntimeConfiguration;
 import com.prezi.pride.cli.commands.actions.InitAction;
 import com.prezi.pride.cli.commands.actions.RefreshDependenciesAction;
-import io.airlift.command.Command;
-import io.airlift.command.Option;
+import io.airlift.airline.Command;
+import io.airlift.airline.Option;
 
 import static com.prezi.pride.cli.Configurations.COMMAND_REINIT_REFRESH_DEPENDENCIES;
 import static com.prezi.pride.cli.Configurations.GRADLE_WRAPPER;

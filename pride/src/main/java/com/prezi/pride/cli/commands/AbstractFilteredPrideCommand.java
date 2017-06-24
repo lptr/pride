@@ -8,7 +8,7 @@ import com.prezi.pride.filters.ChangedFilter;
 import com.prezi.pride.filters.Filter;
 import com.prezi.pride.filters.Filters;
 import com.prezi.pride.filters.NameMatcherFilter;
-import io.airlift.command.Option;
+import io.airlift.airline.Option;
 
 import java.util.Collection;
 import java.util.Collections;

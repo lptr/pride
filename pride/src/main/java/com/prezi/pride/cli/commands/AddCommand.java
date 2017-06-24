@@ -9,9 +9,9 @@ import com.prezi.pride.cli.ExportedModule;
 import com.prezi.pride.cli.commands.actions.AddAction;
 import com.prezi.pride.vcs.Vcs;
 import com.prezi.pride.vcs.VcsSupport;
-import io.airlift.command.Arguments;
-import io.airlift.command.Command;
-import io.airlift.command.Option;
+import io.airlift.airline.Arguments;
+import io.airlift.airline.Command;
+import io.airlift.airline.Option;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Collection;

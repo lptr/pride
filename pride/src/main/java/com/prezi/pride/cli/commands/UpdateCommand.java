@@ -7,9 +7,9 @@ import com.prezi.pride.RuntimeConfiguration;
 import com.prezi.pride.cli.commands.actions.RefreshDependenciesAction;
 import com.prezi.pride.internal.LoggedNamedProgressAction;
 import com.prezi.pride.internal.ProgressUtils;
-import io.airlift.command.Arguments;
-import io.airlift.command.Command;
-import io.airlift.command.Option;
+import io.airlift.airline.Arguments;
+import io.airlift.airline.Command;
+import io.airlift.airline.Option;
 
 import java.io.File;
 import java.io.IOException;

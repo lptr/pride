@@ -1,20 +1,6 @@
-group "pride"
-
-// Load gradle.properties for each project
-childProjects.each { _, Project child ->
-	def propertiesFile = new File(child.projectDir, GRADLE_PROPERTIES)
-	if (propertiesFile.exists()) {
-		child.logger.info "Setting properties from ${propertiesFile} for project ${child.path}"
-		propertiesFile.withInputStream { stream ->
-			def properties = new Properties()
-			properties.load(stream)
-			properties.each { String key, value ->
-				child.logger.debug "\tsetting ${child.path}/${key} = ${value}"
-				child.setProperty(key, value)
-			}
-		}
+// Patch tasks through to projects in included builds
+tasks.addRule("Execute task from included builds") { String taskName ->
+	task(taskName) {
+		dependsOn gradle.includedBuilds*.configuredBuild*.rootProject*.allprojects*.tasks[taskName]
 	}
 }
-
-// Required to be able to do nothing during refreshing dependencies
-task doNothing

@@ -1,7 +1,7 @@
 package com.prezi.pride.cli.commands;
 
 import com.prezi.pride.PrideVersion;
-import io.airlift.command.Command;
+import io.airlift.airline.Command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

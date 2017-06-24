@@ -2,19 +2,17 @@ package com.prezi.pride.cli.commands;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
-import com.google.common.base.Throwables;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import com.prezi.pride.Module;
 import com.prezi.pride.Pride;
 import com.prezi.pride.PrideException;
 import com.prezi.pride.cli.PrideInitializer;
-import com.prezi.pride.cli.gradle.GradleConnectorManager;
 import com.prezi.pride.internal.LoggedNamedProgressAction;
 import com.prezi.pride.internal.ProgressUtils;
-import io.airlift.command.Arguments;
-import io.airlift.command.Command;
-import io.airlift.command.Option;
+import io.airlift.airline.Arguments;
+import io.airlift.airline.Command;
+import io.airlift.airline.Option;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,8 +39,10 @@ public class RemoveCommand extends AbstractFilteredPrideCommand {
 					File moduleDir = pride.getModuleDirectory(module.getName());
 					try {
 						return module.getVcs().getSupport().hasChanges(moduleDir);
+					} catch (RuntimeException e) {
+						throw e;
 					} catch (Exception e) {
-						throw Throwables.propagate(e);
+						throw new RuntimeException(e);
 					}
 				}
 			});
@@ -70,7 +70,7 @@ public class RemoveCommand extends AbstractFilteredPrideCommand {
 		pride.save();
 
 		// Re-initialize pride
-		new PrideInitializer(new GradleConnectorManager(pride.getConfiguration()), isVerbose()).reinitialize(pride);
+		new PrideInitializer(isVerbose()).reinitialize(pride);
 
 		// Show error if not all modules could be removed
 		if (!failedModules.isEmpty()) {

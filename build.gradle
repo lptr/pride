@@ -33,7 +33,7 @@ allprojects {
 }
 
 // Use this Gradle version by default
-ext.defaultGradleVersion = "2.5"
+ext.defaultGradleVersion = "4.0"
 
 subprojects { subproject ->
 	apply plugin: "maven"
@@ -41,8 +41,8 @@ subprojects { subproject ->
 
 	description = "Pride manages multiple Gradle modules as a single Gradle project"
 
-	sourceCompatibility = 1.6
-	targetCompatibility = 1.6
+	sourceCompatibility = 1.7
+	targetCompatibility = 1.7
 
 	tasks.withType(AbstractCompile) {
 		options.encoding = "UTF-8"
@@ -95,7 +95,7 @@ subprojects { subproject ->
 
 	task integTest(type: Test) {
 		shouldRunAfter test
-		testClassesDir = sourceSets.integTest.output.classesDir
+		testClassesDirs = sourceSets.integTest.output.classesDirs
 		classpath = sourceSets.integTest.runtimeClasspath
 	}
 
@@ -225,9 +225,9 @@ project("pride-core") {
 		}
 		compile "commons-lang:commons-lang:2.6"
 		compile "commons-codec:commons-codec:1.9"
-		compile "commons-io:commons-io:2.4"
-		compile "com.google.guava:guava:17.0"
-		compile "org.slf4j:jcl-over-slf4j:1.7.7"
+		compile "commons-io:commons-io:2.5"
+		compile "com.google.guava:guava:20.0"
+		compile "org.slf4j:jcl-over-slf4j:1.7.25"
 	}
 }
 
@@ -250,8 +250,8 @@ project("pride") {
 	dependencies {
 		compile project(path: ":pride-core")
 		compile "org.gradle:gradle-tooling-api:${defaultGradleVersion}"
-		compile "io.airlift:airline:0.6"
-		compile "ch.qos.logback:logback-classic:1.1.2"
+		compile "io.airlift:airline:0.7"
+		compile "ch.qos.logback:logback-classic:1.2.3"
 
 		runtime project(path: ":pride-git-support")
 		runtime project(path: ":pride-svn-support")
@@ -269,43 +269,8 @@ project("pride") {
 	}
 
 	distTar {
-		compression Compression.GZIP
-		extension "tar.gz"
-	}
-}
-
-project("gradle-pride-plugin") {
-	dependencies {
-		compile gradleApi()
-		compile project(":pride-core")
-		compile "com.google.guava:guava:17.0"
-	}
-
-	if (gradlePluginPortal) {
-		apply plugin: "com.gradle.plugin-publish"
-
-		pluginBundle {
-			website = "https://github.com/prezi/pride"
-			vcsUrl = "https://github.com/prezi/pride.git"
-			tags = ["gradle", "pride", "git", "svn", "dynamic dependencies"]
-
-			plugins {
-				pridePlugin {
-					id = "com.prezi.pride"
-					displayName = "Pride plugin"
-					description = "Pride manages multiple Gradle modules as a single Gradle project"
-				}
-			}
-		}
-
-		uploadArchives.dependsOn publishPlugins
-	}
-}
-
-project("gradle-pride-projectmodel-plugin") {
-	dependencies {
-		compile gradleApi()
-		compile project(":pride-core")
+		compression = Compression.GZIP
+		extension = "tar.gz"
 	}
 }
 

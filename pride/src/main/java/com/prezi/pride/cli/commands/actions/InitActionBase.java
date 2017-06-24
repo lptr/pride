@@ -31,15 +31,11 @@ public abstract class InitActionBase {
 	public final void createPride(boolean addWrapper, boolean verbose) throws Exception {
 		// Make sure we take the local config into account when choosing the Gradle installation
 		RuntimeConfiguration configForGradle = globalConfig.withConfiguration(prideConfig);
-		GradleConnectorManager gradleConnectorManager = new GradleConnectorManager(configForGradle);
-
-		// Create the pride
-		PrideInitializer prideInitializer = new PrideInitializer(gradleConnectorManager, verbose);
-		Pride pride = prideInitializer.create(prideDirectory, globalConfig, prideConfig, vcsManager);
 
 		if (addWrapper) {
 			logger.info("Adding Gradle wrapper");
-			gradleConnectorManager.executeInProject(pride.getRootDirectory(), new GradleProjectExecution<Void, RuntimeException>() {
+			GradleConnectorManager gradleConnectorManager = new GradleConnectorManager(configForGradle);
+			gradleConnectorManager.executeInProject(prideDirectory, new GradleProjectExecution<Void, RuntimeException>() {
 				@Override
 				public Void execute(File projectDirectory, ProjectConnection connection) {
 					connection.newBuild()
@@ -50,6 +46,9 @@ public abstract class InitActionBase {
 			});
 		}
 
+		// Create the pride
+		PrideInitializer prideInitializer = new PrideInitializer(verbose);
+		Pride pride = prideInitializer.create(prideDirectory, globalConfig, prideConfig, vcsManager);
 		initPride(prideInitializer, pride, verbose);
 	}
 

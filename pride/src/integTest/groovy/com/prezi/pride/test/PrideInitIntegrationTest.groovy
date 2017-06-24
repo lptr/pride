@@ -15,10 +15,8 @@ class PrideInitIntegrationTest extends AbstractIntegrationSpec {
 		file("gradle").isDirectory()
 
 		rawContents("settings.gradle", "//") == """
-include 'file-module'
-project(':file-module').projectDir = file('file-module')
-include 'git-module'
-project(':git-module').projectDir = file('git-module')
+includeBuild 'file-module'
+includeBuild 'git-module'
 """
 
 		rawContents(".pride/version", "#") == """
@@ -26,7 +24,6 @@ project(':git-module').projectDir = file('git-module')
 """
 
 		asProps(file(".pride/config")) == asProps("""
-gradle.version = ${defaultGradleVersion}
 modules.0.name = file-module
 modules.0.vcs = file
 modules.1.name = git-module
@@ -39,7 +36,6 @@ modules.1.vcs = git
 
 		then:
 		asProps(exportFile) == asProps("""
-gradle.version = ${defaultGradleVersion}
 modules.0.name = file-module
 modules.0.vcs = file
 modules.1.name = git-module
@@ -55,28 +51,13 @@ modules.1.revision = master
 
 		then:
 		rawContents("settings.gradle", "//") == """
-include 'git-module'
-project(':git-module').projectDir = file('git-module')
+includeBuild 'git-module'
 """
 		asProps(file(".pride/config")) == asProps("""
-gradle.version = ${defaultGradleVersion}
 modules.0.name = git-module
 modules.0.vcs = git
 """)
 
-	}
-
-	def "using with earlier Gradle versions produces error"() {
-		given:
-		setupModules()
-		pride "init", "--gradle-version", "2.4"
-
-		expect:
-		gradle(["tasks"]) { Process process ->
-			assert process.err.text.contains("""Pride requires Gradle version 2.5 or later. If you want to use an earlier Gradle version, try Pride 0.10.""")
-			process.waitForProcessOutput()
-			assert process.exitValue() != 0
-		}
 	}
 
 	def setupModules() {

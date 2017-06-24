@@ -1,17 +1,4 @@
-buildscript {
-	repositories {
-		mavenLocal()
-		mavenCentral()
-	}
-
-	dependencies {
-		classpath "com.prezi.pride:gradle-pride-plugin:@version@"
-	}
-}
-
 group "com.example.test.git"
-
-apply plugin: "com.prezi.pride"
 
 configurations {
 	compile

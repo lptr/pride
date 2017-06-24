@@ -9,7 +9,6 @@ import com.prezi.pride.PrideException;
 import com.prezi.pride.RuntimeConfiguration;
 import com.prezi.pride.cli.ExportedModule;
 import com.prezi.pride.cli.PrideInitializer;
-import com.prezi.pride.cli.gradle.GradleConnectorManager;
 import com.prezi.pride.internal.LoggedNamedProgressAction;
 import com.prezi.pride.internal.ProgressUtils;
 import com.prezi.pride.vcs.RepoCache;
@@ -118,7 +117,7 @@ public class AddAction {
 		});
 
 		pride.save();
-		new PrideInitializer(new GradleConnectorManager(config), verbose).reinitialize(pride);
+		new PrideInitializer(verbose).reinitialize(pride);
 
 		if (!failedModules.isEmpty()) {
 			throw new PrideException("Could not add the following modules:\n\n\t* " + Joiner.on("\n\t* ").join(failedModules));

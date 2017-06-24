@@ -11,7 +11,6 @@ public class DefaultPridePlugin implements PridePlugin {
 	public Collection<Class<? extends PrideCommand>> getCommands() {
 		return ImmutableList.<Class<? extends PrideCommand>>of(
 				AddCommand.class,
-				CheckVersionsCommand.class,
 				ConfigCommand.class,
 				DoCommand.class,
 				ExportCommand.class,

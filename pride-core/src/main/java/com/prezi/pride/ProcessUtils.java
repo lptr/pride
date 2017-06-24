@@ -1,5 +1,6 @@
 package com.prezi.pride;
 
+import com.google.common.base.Charsets;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -10,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ProcessUtils {
@@ -62,8 +63,8 @@ public class ProcessUtils {
 			String output;
 			if (!processOutput) {
 				List<String> outputLines = new ArrayList<String>();
-				outputLines.addAll(IOUtils.readLines(process.getErrorStream()));
-				outputLines.addAll(IOUtils.readLines(process.getInputStream()));
+				outputLines.addAll(IOUtils.readLines(process.getErrorStream(), Charsets.UTF_8));
+				outputLines.addAll(IOUtils.readLines(process.getInputStream(), Charsets.UTF_8));
 				output = ", output:\n" + StringUtils.join(outputLines, '\n');
 			} else {
 				output = "";
@@ -75,7 +76,7 @@ public class ProcessUtils {
 	}
 
 	public static Process executeIn(File directory, List<?> commandLine, boolean processOutput, boolean redirectErrorStream) throws IOException {
-		List<Integer> defaultAcceptableExitCodes = Arrays.asList(0);
+		List<Integer> defaultAcceptableExitCodes = Collections.singletonList(0);
 		return ProcessUtils.executeIn(directory, commandLine, processOutput, redirectErrorStream, defaultAcceptableExitCodes);
 	}
 

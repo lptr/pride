@@ -2,7 +2,7 @@ package com.prezi.pride.cli.commands;
 
 import com.prezi.pride.RuntimeConfiguration;
 import com.prezi.pride.cli.DefaultRuntimeConfiguration;
-import io.airlift.command.Option;
+import io.airlift.airline.Option;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
 import static com.prezi.pride.cli.Configurations.GRADLE_HOME;

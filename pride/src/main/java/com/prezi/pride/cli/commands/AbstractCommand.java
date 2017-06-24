@@ -2,7 +2,7 @@ package com.prezi.pride.cli.commands;
 
 import com.prezi.pride.PrideException;
 import com.prezi.pride.vcs.VcsManager;
-import io.airlift.command.Option;
+import io.airlift.airline.Option;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
